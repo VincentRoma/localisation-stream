@@ -9,11 +9,11 @@
                 <input ng-model="coords.lat" type="text" id="Latitude" class="form-control" placeholder="Latitude" required="">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember-me"> Fake Movement
+                        <input ng-model="is_moving" type="checkbox" value="remember-me"> Fake Movement
                     </label>
                 </div>
                 <button ng-show="!sending" ng-click="send_data()" class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
-                <button ng-show="sending" ng-click="send_data()" class="btn btn-lg btn-primary btn-block" type="submit">Stop</button>
+                <button ng-show="sending" ng-click="stop_data()" class="btn btn-lg btn-danger btn-block" type="submit">Stop</button>
             </form>
         </div>
     </div>

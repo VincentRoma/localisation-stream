@@ -26,7 +26,9 @@
             stop = $interval(function() {
                 if ($scope.sending) {
                     $scope.position.$save();
-                    $scope.coords.long += 0.001;
+                    if($scope.is_moving){
+                        $scope.coords.lat += 0.001;
+                    }
                     $scope.position = new Position($scope.coords);
                 } else {
                     if (angular.isDefined(stop)) {

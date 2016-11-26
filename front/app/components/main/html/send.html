@@ -1,0 +1,17 @@
+<form class="form-inline" style="margin-top:5em;">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail3">Longitude</label>
+    <input ng-model="coords.long" type="text" class="form-control" id="Longitude" placeholder="Longitude">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword3">Latitude</label>
+    <input ng-model="coords.lat" type="text" class="form-control" id="Latitude" placeholder="Latitude">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="is_moving"> Move coords
+    </label>
+  </div>
+  <button ng-show="!sending" ng-click="send_data()" type="submit" class="btn btn-default">Send</button>
+  <button ng-show="sending" ng-click="stop_data()" type="submit" class="btn btn-default">Stop</button>
+</form>

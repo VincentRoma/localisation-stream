@@ -3,6 +3,8 @@
         <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
             <form class="form-signin">
                 <h2 class="form-signin-heading">Coordinates</h2>
+                <label for="User" class="sr-only">User</label>
+                <input ng-model="coords.user" type="text" id="User" class="form-control" placeholder="User" required="" autofocus="">
                 <label for="Longitude" class="sr-only">Longitude</label>
                 <input ng-model="coords.long" type="text" id="Longitude" class="form-control" placeholder="Longitude" required="" autofocus="">
                 <label for="Latitude" class="sr-only">Latitude</label>

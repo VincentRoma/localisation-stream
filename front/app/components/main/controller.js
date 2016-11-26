@@ -5,19 +5,23 @@
 
     app.controller('MainController', function($scope, $websocket) {
         var dataStream = $websocket('ws://localhost:8383/');
-        var collection = [];
+        $scope.collection = {};
 
         dataStream.onMessage(function(message) {
             console.log(message);
-            var coord = JSON.parse(message.data)
-            collection.push(coord);
-            $scope.current_position = [coord.long, coord.lat];
+            var message = JSON.parse(message.data)
+            if($scope.collection[message.user]){
+                $scope.collection[message.user] = {'long': message.long, 'lat': message.lat};
+            }else{
+                $scope.collection[message.user] = {'long': message.long, 'lat': message.lat};
+            }
+            // $scope.current_position = [coord.long, coord.lat];
         });
     });
 
     app.controller('SendController', function($scope, $interval, Position) {
         $scope.is_moving = false;
-        $scope.coords = {'long': 48.8875552, 'lat': 2.1947438};
+        $scope.coords = {'long': 48.8875552, 'lat': 2.1947438, 'user': 'Faurecia1'};
         $scope.sending = false;
         $scope.send_data = function(){
             $scope.sending = true;

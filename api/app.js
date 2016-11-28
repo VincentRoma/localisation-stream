@@ -3,7 +3,6 @@ var WebSocketServer = require('ws').Server
 var http = require('http');
 var express        = require('express');
 var app            = express();
-// mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var cors = require('cors');
 
@@ -13,10 +12,12 @@ var cors = require('cors');
 // config files
 var port = process.argv.port || 8383; // set our port
 
-// var db = require('./db');
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
 
-// connect to our mongoDB database (commented out after you enter in your own credentials)
-// connectionsubject = mongoose.createConnection(db.urlSubjectViews);
+// Connection URL
+var url = 'mongodb://localhost:27017/location';
+
 
 app.use(bodyParser.json({limit: '50mb'})); // parse application/json
 app.use(cors());
@@ -47,7 +48,26 @@ wss.broadcast = function(data){
 		client.send(data);
 	});
 };
+
+var insertDocument = function(db, data, callback) {
+  // Get the documents collection
+  var collection = db.collection('position');
+  // Insert some documents
+  collection.insert([
+	  data
+  ], function(err, result) {
+    console.log("Inserted documents into the collection");
+    callback(result);
+  });
+}
+
+
 app.post('/position',function(req, res){
+	MongoClient.connect(url, function(err, db) {
+	  insertDocument(db, req.body, function() {
+	    db.close();
+	  });
+	});
     wss.broadcast(JSON.stringify(req.body));
     res.sendStatus(200);
 });
